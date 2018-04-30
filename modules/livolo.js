@@ -1,5 +1,5 @@
-var mqtt = require("mqtt")
-var rpio = require("rpio")
+const mqtt = require("mqtt")
+const rpio = require("rpio")
 
 const TOPIC = "home/office/light"
 const PIN = 16
@@ -53,13 +53,20 @@ function switchLivolo(event) {
 }
 
 exports.start = function() {
-  var client = mqtt.connect("mqtt://localhost")
+  const client = mqtt.connect("mqtt://localhost")
+  let started = false
 
   client.on("connect", function() {
     client.subscribe(TOPIC)
   })
 
   client.on("message", function(topic, message) {
+    // avoid switchLivolo on connect
+    if (!started) {
+      started = true
+      return
+    }
+
     console.log("Received message on " + topic + ": " + message.toString())
     switchLivolo(message.toString())
   })
