@@ -1,0 +1,12 @@
+{
+  "name": "housear",
+  "version": "1.0.0",
+  "description": "House listener to integrate MQTT and GPIO",
+  "main": "index.js",
+  "repository": "git@github.com:thiagogsr/housear.git",
+  "author": "Thiago Guimarães <thiagogsr@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "mqtt": "^2.17.0"
+  }
+}
