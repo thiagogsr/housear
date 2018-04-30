@@ -11,6 +11,9 @@ function sleep(ms) {
 }
 
 async function switchLivolo(event) {
+  gpio.setMode(gpio.MODE_BCM)
+  gpio.setup(PIN, gpio.DIR_OUT)
+
   if (event === "OFF") {
     var times = 1000
     var bytes = OFF
@@ -56,8 +59,6 @@ async function switchLivolo(event) {
 
 exports.start = function() {
   var client = mqtt.connect("mqtt://localhost")
-  gpio.setMode(gpio.MODE_BCM)
-  gpio.setup(PIN, gpio.DIR_OUT)
 
   client.on("connect", function() {
     client.subscribe(TOPIC)
