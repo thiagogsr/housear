@@ -1,4 +1,4 @@
-:house: :ear:
+# :house: :ear:
 
 * Add your user on `gpio` group
 
