@@ -8,7 +8,7 @@ const ON = "124242435242434242424242424242425243424242"
 
 function switchLivolo(event) {
   gpio.setMode(gpio.MODE_BCM)
-  gpio.setup(PIN, gpio.DIR_OUT).then(function() {
+  gpio.setup(PIN, gpio.DIR_OUT, function() {
     if (event === "OFF") {
       var times = 1000
       var bytes = OFF
