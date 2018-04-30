@@ -7,7 +7,7 @@ const OFF = "1242424352424342424242424242425342524342"
 const ON = "124242435242434242424242424242425243424242"
 
 function switchLivolo(event) {
-  if (event === "off") {
+  if (event === "OFF") {
     var times = 1000
     var bytes = OFF
   } else {
@@ -50,7 +50,7 @@ function switchLivolo(event) {
           break
       }
       gpio.write(PIN, 0)
-      gpio.cleanup()
+      gpio.destroy()
     }
   }
 }
@@ -64,8 +64,6 @@ exports.start = function() {
   })
 
   client.on("message", function(topic, message) {
-    // switchLivolo(message.toString())
-    console.log(message.toString())
-    client.end()
+    switchLivolo(message.toString())
   })
 }
