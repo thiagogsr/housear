@@ -49,10 +49,10 @@ function switchLivolo(event) {
           }, 0.00029)
           break
       }
-      gpio.write(PIN, 0)
-      gpio.destroy()
     }
+    gpio.write(PIN, 0)
   }
+  gpio.destroy()
 }
 
 exports.start = function() {
