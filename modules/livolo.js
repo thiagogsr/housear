@@ -58,6 +58,7 @@ function switchLivolo(event) {
 exports.start = function() {
   var client = mqtt.connect("mqtt://localhost")
   gpio.setMode(gpio.MODE_BCM)
+  gpio.setup(PIN, gpio.DIR_OUT)
 
   client.on("connect", function() {
     client.subscribe(TOPIC)
