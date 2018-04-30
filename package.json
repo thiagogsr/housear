@@ -7,6 +7,7 @@
   "author": "Thiago Guimarães <thiagogsr@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "mqtt": "^2.17.0"
+    "mqtt": "^2.17.0",
+    "rpi-gpio": "^0.9.1"
   }
 }
