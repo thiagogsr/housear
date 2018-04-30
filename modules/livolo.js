@@ -60,6 +60,7 @@ exports.start = function() {
   })
 
   client.on("message", function(topic, message) {
+    console.log("Received message on " + topic + ": " + message.toString())
     switchLivolo(message.toString())
   })
 }
