@@ -30,33 +30,33 @@ async function performSwitch(times, bytes) {
     for (var y = 0; y < bytes.length; y++) {
       switch (bytes.charAt(y)) {
         case "1":
-          gpio.write(PIN, 1)
+          gpio.write(PIN, true)
           await sleep(0.00055)
-          gpio.write(PIN, 0)
+          gpio.write(PIN, false)
           break
         case "2":
-          gpio.write(PIN, 0)
+          gpio.write(PIN, false)
           await sleep(0.00011)
-          gpio.write(PIN, 1)
+          gpio.write(PIN, true)
           break
         case "3":
-          gpio.write(PIN, 0)
+          gpio.write(PIN, false)
           await sleep(0.000303)
-          gpio.write(PIN, 1)
+          gpio.write(PIN, true)
           break
         case "4":
-          gpio.write(PIN, 1)
+          gpio.write(PIN, true)
           await sleep(0.00011)
-          gpio.write(PIN, 0)
+          gpio.write(PIN, false)
           break
         case "5":
-          gpio.write(PIN, 1)
+          gpio.write(PIN, true)
           await sleep(0.00029)
-          gpio.write(PIN, 0)
+          gpio.write(PIN, false)
           break
       }
     }
-    gpio.write(PIN, 0)
+    gpio.write(PIN, false)
   }
   gpio.destroy()
 }
