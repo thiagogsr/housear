@@ -1,64 +1,55 @@
 var mqtt = require("mqtt")
-var gpio = require("rpi-gpio")
+var rpio = require("rpio")
 
 const TOPIC = "home/office/light"
-const PIN = 23
+const PIN = 16
 const OFF = "1242424352424342424242424242425342524342"
 const ON = "124242435242434242424242424242425243424242"
 
 function switchLivolo(event) {
-  gpio.setMode(gpio.MODE_BCM)
-  gpio.setup(PIN, gpio.DIR_OUT, function() {
-    if (event === "OFF") {
-      var times = 1000
-      var bytes = OFF
-    } else {
-      var times = 150
-      var bytes = ON
-    }
+  rpio.open(PIN, rpio.OUTPUT)
 
-    performSwitch(times, bytes)
-  })
-}
+  if (event === "OFF") {
+    var times = 1000
+    var bytes = OFF
+  } else {
+    var times = 150
+    var bytes = ON
+  }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
-
-async function performSwitch(times, bytes) {
   for (var x = 0; x < times; x++) {
     for (var y = 0; y < bytes.length; y++) {
       switch (bytes.charAt(y)) {
         case "1":
-          gpio.write(PIN, true)
-          await sleep(0.00055)
-          gpio.write(PIN, false)
+          rpio.write(PIN, rpio.HIGH)
+          rpio.sleep(0.00055)
+          rpio.write(PIN, rpio.LOW)
           break
         case "2":
-          gpio.write(PIN, false)
-          await sleep(0.00011)
-          gpio.write(PIN, true)
+          rpio.write(PIN, rpio.LOW)
+          rpio.sleep(0.00011)
+          rpio.write(PIN, rpio.HIGH)
           break
         case "3":
-          gpio.write(PIN, false)
-          await sleep(0.000303)
-          gpio.write(PIN, true)
+          rpio.write(PIN, rpio.LOW)
+          rpio.sleep(0.000303)
+          rpio.write(PIN, rpio.HIGH)
           break
         case "4":
-          gpio.write(PIN, true)
-          await sleep(0.00011)
-          gpio.write(PIN, false)
+          rpio.write(PIN, rpio.HIGH)
+          rpio.sleep(0.00011)
+          rpio.write(PIN, rpio.LOW)
           break
         case "5":
-          gpio.write(PIN, true)
-          await sleep(0.00029)
-          gpio.write(PIN, false)
+          rpio.write(PIN, rpio.HIGH)
+          rpio.sleep(0.00029)
+          rpio.write(PIN, rpio.LOW)
           break
       }
     }
-    gpio.write(PIN, false)
+    rpio.write(PIN, rpio.LOW)
   }
-  gpio.destroy()
+  rpio.close(PIN)
 }
 
 exports.start = function() {
