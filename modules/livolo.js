@@ -6,7 +6,11 @@ const PIN = 23
 const OFF = "1242424352424342424242424242425342524342"
 const ON = "124242435242434242424242424242425243424242"
 
-function switchLivolo(event) {
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function switchLivolo(event) {
   if (event === "OFF") {
     var times = 1000
     var bytes = OFF
@@ -20,33 +24,28 @@ function switchLivolo(event) {
       switch (bytes.charAt(y)) {
         case "1":
           gpio.write(PIN, 1)
-          setTimeout(function() {
-            gpio.write(PIN, 0)
-          }, 0.00055)
+          await sleep(0.00055)
+          gpio.write(PIN, 0)
           break
         case "2":
           gpio.write(PIN, 0)
-          setTimeout(function() {
-            gpio.write(PIN, 1)
-          }, 0.00011)
+          await sleep(0.00011)
+          gpio.write(PIN, 1)
           break
         case "3":
           gpio.write(PIN, 0)
-          setTimeout(function() {
-            gpio.write(PIN, 1)
-          }, 0.000303)
+          await sleep(0.000303)
+          gpio.write(PIN, 1)
           break
         case "4":
           gpio.write(PIN, 1)
-          setTimeout(function() {
-            gpio.write(PIN, 0)
-          }, 0.00011)
+          await sleep(0.00011)
+          gpio.write(PIN, 0)
           break
         case "5":
           gpio.write(PIN, 1)
-          setTimeout(function() {
-            gpio.write(PIN, 0)
-          }, 0.00029)
+          await sleep(0.00029)
+          gpio.write(PIN, 0)
           break
       }
     }
