@@ -1,0 +1,15 @@
+[Unit]
+Description=Housear Server
+
+[Service]
+ExecStart=/usr/bin/node /home/pi/housear/index.js
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=housear
+User=pi
+Group=pi
+
+[Install]
+WantedBy=multi-user.target
