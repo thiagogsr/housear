@@ -5,7 +5,6 @@ const port = new SerialPort("/dev/ttyS0", {
 })
 
 exports.send = function(signals) {
-  ;[0xa1, 0xf1].concat(signals).forEach(signal => {
-    port.write(signal)
-  })
+  const buffer = new Buffer([0xa1, 0xf1].concat(signals))
+  port.write(buffer)
 }

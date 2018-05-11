@@ -1,7 +1,7 @@
 const MQTT = require("mqtt")
 const Livolo = require("./modules/livolo")
 const IR = require("./modules/ir")
-const IRMapping = require("./params/ir")
+const IRMapping = require("./params/ir").default
 
 const TOPICS = ["home/office/light"]
 

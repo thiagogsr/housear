@@ -1,4 +1,4 @@
-exports = {
+exports.default = {
   living: {
     tv: {
       volume: {
