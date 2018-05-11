@@ -1,13 +1,15 @@
-const mqtt = require("mqtt")
-const livolo = require("./modules/livolo")
+const MQTT = require("mqtt")
+const Livolo = require("./modules/livolo")
+const IR = require("./modules/ir")
+const IRMapping = require("./params/ir")
 
-const topics = ["home/office/light"]
-const client = mqtt.connect("mqtt://localhost")
+const TOPICS = ["home/office/light"]
 
+let client = MQTT.connect("mqtt://localhost")
 let started = false
 
 client.on("connect", function() {
-  client.subscribe(topics)
+  client.subscribe(TOPICS)
 })
 
 client.on("message", function(topic, message) {
@@ -22,9 +24,11 @@ client.on("message", function(topic, message) {
 
   switch (topic) {
     case "home/office/light":
-      livolo.switch(receivedMessage)
+      Livolo.switch(receivedMessage)
       break
     default:
       throw "Unknown topic"
   }
 })
+
+IR.send(IRMapping.living.tv.volume.inc)
