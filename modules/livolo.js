@@ -1,12 +1,10 @@
-const mqtt = require("mqtt")
 const rpio = require("rpio")
 
-const TOPIC = "home/office/light"
 const PIN = 16
 const OFF = "1242424352424342424242424242425342524342"
 const ON = "124242435242434242424242424242425243424242"
 
-function switchLivolo(event) {
+exports.switch = function(event) {
   rpio.open(PIN, rpio.OUTPUT)
 
   if (event === "OFF") {
@@ -50,24 +48,4 @@ function switchLivolo(event) {
     rpio.write(PIN, rpio.LOW)
   }
   rpio.close(PIN)
-}
-
-exports.start = function() {
-  const client = mqtt.connect("mqtt://localhost")
-  let started = false
-
-  client.on("connect", function() {
-    client.subscribe(TOPIC)
-  })
-
-  client.on("message", function(topic, message) {
-    // avoid switchLivolo on connect
-    if (!started) {
-      started = true
-      return
-    }
-
-    console.log("Received message on " + topic + ": " + message.toString())
-    switchLivolo(message.toString())
-  })
 }
