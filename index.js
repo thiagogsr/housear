@@ -28,6 +28,7 @@ client.on("message", function(topic, message) {
       break
     case "home/living/tv/volume":
       IR.send(IRMapping.living.tv.volume[receivedMessage])
+      break
     default:
       throw "Unknown topic"
   }
