@@ -3,7 +3,7 @@ const Livolo = require("./modules/livolo")
 const IR = require("./modules/ir")
 const IRMapping = require("./params/ir").default
 
-const TOPICS = ["home/office/light", "home/living/tv/volume"]
+const TOPICS = ["home/office/light", "home/living/tv"]
 
 let client = MQTT.connect("mqtt://localhost")
 let started = false
@@ -26,8 +26,8 @@ client.on("message", function(topic, message) {
     case "home/office/light":
       Livolo.switch(receivedMessage)
       break
-    case "home/living/tv/volume":
-      IR.send(IRMapping.living.tv.volume[receivedMessage])
+    case "home/living/tv":
+      IR.send(IRMapping.living.tv[receivedMessage])
       break
     default:
       throw "Unknown topic"
